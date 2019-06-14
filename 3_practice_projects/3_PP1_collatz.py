@@ -1,6 +1,7 @@
 #               Automate the Boring Stuff with Python 3
-#               Practice Project 1 -> CH 3
-#               Collatz Sequence
+#               Ch 5 -  Practice Project -  Collatz Sequence
+#               By Scott Watson
+
 import sys
 
 def collatz(number):

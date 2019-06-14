@@ -1,5 +1,5 @@
 #               Automate the Boring Stuff with Python 3
-#               Ch 4 -  Practice Project -
+#               Ch 4 -  Practice Project - Comma Code & Grid Print
 #               By Scott Watson
 
 '''
