@@ -16,11 +16,11 @@ def str_pw(password):
         * Uses both uppercase and lowercase characters
         * At least one digit
     '''
-    # Rev 2
+       # Rev 2
     # Sorts password NUMERIC-UPPERCASE-LOWERCASE
     sorted_pass = ''.join(sorted(password))
-    # Pattern to check is [one or more numeric] [one or more Uppercase][one or more lowercase]
-    pwRegex = re.compile(r'[0-9]+[A-Z]+[a-z]+')
+    # Pattern to check is [one or more numeric] [symbols if any][one or more uppercase][symbols if any][one or more lowercase]
+    pwRegex = re.compile(r'\d+[^0-9a-zA-Z]*[A-Z]+[^0-9a-zA-Z]*[a-z]+')
     # Returns True      if  password is 8 char or longer
     #                              AND  boolean converts the regex to True which corresponds a matched object rn
     return len(password) >=8 and bool(pwRegex.search(sorted_pass))
@@ -48,16 +48,16 @@ def str_pw(password):
 
 # Function Testing
 # TRUE
-str_pw('ABCDefg8') # UPPER  LOWER NUMERIC  len() = 8
-str_pw('1234ABCd') # NUMERIC UPPER LOWER len() = 8
-str_pw('abcdEFG1') # LOWER UPPER NUMERIC len() = 8
+str_pw('asdsgasGASDGSD334234##%$^&()') # UPPER  LOWER NUMERIC  len() = 8
+str_pw('!1234ABCd') # NUMERIC UPPER LOWER len() = 8
+str_pw('!abcdEFG1') # LOWER UPPER NUMERIC len() = 8
 str_pw('abcd1EFG') # LOWER NUMERIC UPPER len() = 8
 
 # FALSE
 str_pw('123456') # len() = 6
 str_pw('12345678') # All NUMERIC
 str_pw('Abcdef1') # len() = 7  Otherwise would be True
-str_pw('Abcdefgh') # Missing NUMERIC
-str_pw('ABCDEFGH') # All UPPER
+str_pw('!Abcdefgh') # Missing NUMERIC
+str_pw('#ABCDEFGH') # All UPPER
 str_pw('abcdefg1') # Missing UPPER
 str_pw('ABCDEFG1') # Missing LOWER
