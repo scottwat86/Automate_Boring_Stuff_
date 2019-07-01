@@ -161,6 +161,9 @@ cats = [{'name': 'Zophie', 'desc': 'chubby'}, {'name': 'Pooka', 'desc': 'fluffy'
 pprint.pformat(cats)
 "[{'desc': 'chubby', 'name': 'Zophie'}, {'desc': 'fluffy', 'name': 'Pooka'}]"
 
+# Writing data to a py file instead of a shelve module is beneficial
+# in that any text editor can view and revised the file. That being said
+# in general it is best to use shelve module to store data.
 fileObj = open('myCats.py', 'w')
 fileObj.write('cats = ' +pprint.pformat(cats) + '\n')
 fileObj.close()
@@ -171,3 +174,19 @@ myCats.cats[0] #{'desc': 'chubby', 'name': 'Zophie'}
 myCats.cats[0]['name'] #'Zophie'
 
 #               PROJECT: GENERATING RANDOM QUIZ FILES
+# See 8_randomQuizGenerator.py
+
+#           PROJECT: MULTICLIPBOARD
+#  8_mcb.pyw
+
+#               PRACTICE QUESTIONS
+
+#               1) A relative path is raltive to the current directory
+#               2) Absolute path starts with the root directory. in linux its / and in windows its C:
+#               3) . is the current directory  and .. is one directory prior
+#               4) C:\bacon\eggs\ is the dir name    and   spam.txt is the base name
+#               5) open() modes -> 'w'  writes to the file,    'r'  reads the file only,   'a'   appends the file
+#               7) Opening an existing file in write mode will erase the file and create a new file to write to
+#               8) read() reads the file as single string
+#                   readlines() reads the file as a list of strings, each string is a new line
+#               9) shelf values are like dictionary -> key : value  -> key()  and values() methods
