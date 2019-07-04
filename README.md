@@ -1,3 +1,5 @@
+# Practice Projects by Scott Watson
+
 # Automate_Boring_Stuff 
 by Al Sweigart
 
