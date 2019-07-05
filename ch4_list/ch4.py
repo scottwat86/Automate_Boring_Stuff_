@@ -3,132 +3,121 @@
 #               Lists can be used to arrange data into hierarchical structures
 #               Contains multiple values in an ORDERED SEQUENCE
 
-#
-# [1, 2, 3]
-# ['cat', 'bat', 'rat', 'elephant']
-# ['hello', 3.1415, True, None, 42]
-#
-# #           ACCESSING INDICES
-# spam = ['cat', 'bat', 'rat', 'elephant']
-# #Index      0      1      2         3
-# spam
-# spam[0]  # 'cat'
-#  ['cat', 'bat', 'rat', 'elephant'][3] #'elephant'
-# 'Hello ' + spam[0] #'Hello cat'
-# 'The ' + spam[1] + ' ate the ' + spam[0] #'The bat ate the cat'
-#
-# # IndexError will throw if you call an index beyond the range
-# # spam[1000]
-#
-# # Indices can only be INTEGERS not floats
-# spam[int(1.0)]
-#
-# spam = [['cat', 'bat'],[10, 20, 30, 40, 50]]
-# #                0     1        0   1    2     3    4
-# #                    0                       1
-# sapm[0] # ['cat', 'bat']
-# spam[0][1] # bat
-# spam[1][4] # 50
-#
-# #           NEGATIVE INDICING
-# spam[0][-1] # bat
-# spam[1][-2] # 40
-#
-# #           SUBLIST & SLICER
-# # spam[start:end:step]
-# spam = ['cat', 'bat', 'rat', 'elephant']
-# #               0       1    2          3
-# spam[1:3] # ['bat', 'rat']
-# #   Note 3 is NOT INCLUSIVE
-# spam[::2]  # ['cat', 'rat']
-# # Slices 2 by 2 starting at 0
-# spam[:2] # ['cat', 'bat']
-# spam[:] # ['cat', 'bat', 'rat', 'elephant']
-#
-# #           LENGTH
-# spam = ['cat', 'dog', 'moose']
-# len(spam) # 3
-#
-# #               CHANGING VALUES
-# spam = ['cat', 'bat', 'rat', 'elephant']
-# spam[1] = 'aardvark'
-# spam[2] = spam[1]
-# spam[-1] = 12345 # Last entry
-# spam # ['cat', 'aardvark', 'aardvark', 12345]
-# #               0         1                2               3
-#
-# #               CONCATENATION
-# [1, 2, 3] + ['A', 'B', 'C'] #[1, 2, 3, 'A', 'B', 'C']
-# ['X', 'Y'] *3 #['X', 'Y', 'X', 'Y', 'X', 'Y']
-#
-# spam += ['A']
-# spam  #['cat', 'aardvark', 'aardvark', 12345, 'A']
-#
-#
-# #               REMOVING VALUES -> DEL
-# #   del is mostly used to delete elements from lists
-# spam = [1, 2, 3, 4]
-# del spam[2:4]
-# spam # [1, 2]
-# del spam[0] # [2]
-#
-# del spam # deletes variable name from memory
-# # If you use spam you will now get a NameError
-#
-# #               IMPLEMENTING LISTS
-# catName1 = 'Zophie'
-# catName2 = 'Pooka'
-# catName3 = 'Simon'
-# # The above is dumb programming as it lead to duplicate code later
-#
-# print('Enter the name of cat 1:')
-# canName1 = input()
-# print('Enter the name of cat 2:')
-# catName2 = input()
-# # ...
-#
-# # Instead we should implement a list
-# catNames = [] # creates an empty list
-# while True: # creates an infinite loop
-#     print('Enter the name of cat ' + str(len(catNames)+1) + '\n(Or enter nothing to stop.):')
-#     name = input()
-#     if name  == '':
-#         break # breaks out of loop based on user input ''
-#     catNames +=  [name] # list concatenation
-#     # If you don't [] name it will take each char and added it seperately to the list
-# print('The cat names are')
-# for name in catNames:
-#     print('  ' + name)
-#
-# # Data above is structured and more flexible to deal with
-#
-# #               LOOPS WITH LISTS
-# # in this book list-like objects are really sequences
-# spam = [2, 'hill', 3, 'billy']
-# for i in spam:  # iterates through each element of the list.
-#     print(i)
-#     #    2   hill     3    billy
-#
-# spam = [2, 'hill', 3, 'billy']
-# for i in range(len(spam)):  # Iterates through each index with in the list
-#     print(i)
-#     # 0   1   2   3
-#
-# supplies = ['pens', 'staplers', 'flame-throwers', 'binder']
-# for i in range(len(supplies)):
-#     print('Index ' + str(i) + ' in supplies is: ' + supplies[i])
-# '''
-# Index 0 in supplies is: pens
-# Index 1 in supplies is: staplers-
-# Index 3 in supplies is: binder
-# '''
-#
-# #               IN / NOT IN     OPERATORS
-# # are expression that connect two values together
-#
-# 'howdy' in ['hello', 'hi', 'howdy', 'heyas'] #True
-# 'hello' in spam # False
-# 'howdy' not in spam # True
+
+[1, 2, 3]
+['cat', 'bat', 'rat', 'elephant']
+['hello', 3.1415, True, None, 42]
+
+#           ACCESSING INDICES
+spam = ['cat', 'bat', 'rat', 'elephant']
+#Index      0      1      2         3
+spam
+spam[0]  # 'cat'
+ ['cat', 'bat', 'rat', 'elephant'][3] #'elephant'
+'Hello ' + spam[0] #'Hello cat'
+'The ' + spam[1] + ' ate the ' + spam[0] #'The bat ate the cat'
+
+# IndexError will throw if you call an index beyond the range
+# spam[1000]
+
+# Indices can only be INTEGERS not floats
+spam[int(1.0)]
+
+spam = [['cat', 'bat'],[10, 20, 30, 40, 50]]
+#                0     1        0   1    2     3    4
+#                    0                       1
+sapm[0] # ['cat', 'bat']
+spam[0][1] # bat
+spam[1][4] # 50
+
+#           NEGATIVE INDICING
+spam[0][-1] # bat
+spam[1][-2] # 40
+
+#           SUBLIST & SLICER
+# spam[start:end:step]
+spam = ['cat', 'bat', 'rat', 'elephant']
+#               0       1    2          3
+spam[1:3] # ['bat', 'rat']
+#   Note 3 is NOT INCLUSIVE
+spam[::2]  # ['cat', 'rat']
+# Slices 2 by 2 starting at 0
+spam[:2] # ['cat', 'bat']
+spam[:] # ['cat', 'bat', 'rat', 'elephant']
+
+#           LENGTH
+spam = ['cat', 'dog', 'moose']
+len(spam) # 3
+
+#               CHANGING VALUES
+spam = ['cat', 'bat', 'rat', 'elephant']
+spam[1] = 'aardvark'
+spam[2] = spam[1]
+spam[-1] = 12345 # Last entry
+spam # ['cat', 'aardvark', 'aardvark', 12345]
+#               0         1                2               3
+
+#               CONCATENATION
+[1, 2, 3] + ['A', 'B', 'C'] #[1, 2, 3, 'A', 'B', 'C']
+['X', 'Y'] *3 #['X', 'Y', 'X', 'Y', 'X', 'Y']
+
+spam += ['A']
+spam  #['cat', 'aardvark', 'aardvark', 12345, 'A']
+
+
+#               REMOVING VALUES -> DEL
+#   del is mostly used to delete elements from lists
+spam = [1, 2, 3, 4]
+del spam[2:4]
+spam # [1, 2]
+del spam[0] # [2]
+
+del spam # deletes variable name from memory
+# If you use spam you will now get a NameError
+
+#               IMPLEMENTING LISTS
+catName1 = 'Zophie'
+catName2 = 'Pooka'
+catName3 = 'Simon'
+# The above is dumb programming as it lead to duplicate code later
+
+print('Enter the name of cat 1:')
+canName1 = input()
+print('Enter the name of cat 2:')
+catName2 = input()
+# ...
+
+#####################WORKING WITH LISTS
+#                   allMyCats2.py
+#####################
+
+#               LOOPS WITH LISTS
+# in this book list-like objects are really sequences
+spam = [2, 'hill', 3, 'billy']
+for i in spam:  # iterates through each element of the list.
+    print(i)
+    #    2   hill     3    billy
+
+spam = [2, 'hill', 3, 'billy']
+for i in range(len(spam)):  # Iterates through each index with in the list
+    print(i)
+    # 0   1   2   3
+
+supplies = ['pens', 'staplers', 'flame-throwers', 'binder']
+for i in range(len(supplies)):
+    print('Index ' + str(i) + ' in supplies is: ' + supplies[i])
+'''
+Index 0 in supplies is: pens
+Index 1 in supplies is: staplers-
+Index 3 in supplies is: binder
+'''
+
+#               IN / NOT IN     OPERATORS
+# are expression that connect two values together
+
+'howdy' in ['hello', 'hi', 'howdy', 'heyas'] #True
+'hello' in spam # False
+'howdy' not in spam # True
 
 # myPets.py
 myPets = ['Zophie', 'Pooka', 'Fat-tail']
@@ -230,22 +219,9 @@ spam # ['A', 'Z', 'a', 'z']
 spam.sort(key=str.lower)
 spam # ['A', 'a', 'Z', 'z']
 
-
-#               magix8Ball2.py
-import random
-
-messages = [
-'It is certain',
-'It is decidedly so',
-'Yes definitely',
-'Reply haze try again',
-'Ask again later',
-'Concentrate and ask again',
-'My reply is no',
-'Outlook not so good',
-'Very doubtful']
-
-print(messages[random.randint(0, len(messages)-1)])
+#####################LIST MAGIC 8 BALL
+#                   magic8Ball2.py
+#####################
 
 #  TAB EXCEPTION
 spam = ['apples',
