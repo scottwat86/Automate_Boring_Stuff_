@@ -35,7 +35,6 @@ for filename in os.listdir():
         # os.unline(filename)
         print(filename)
 
-
 #                   SAFE DELETES WITH THE SEND2TRASH MODULE
 import send2trash
 
@@ -89,3 +88,12 @@ with zipfile.ZipFile('example.zip') as exampleZip:
 with zipfile.ZipFile('new.zip', 'w') as newZip:
     newZip.write('spam.txt', compress_type=zipfile.ZIP_DEFLATED)
 # You can also pass the 'a' for append mode
+
+#               PRACTICE PROBLEMS
+#             1)    shutil.copy() copies just a file/directory into directory specified
+#                   shutil.copytree() recursively copies the enire directory tree 
+#             2)shutil.move() can be used to rename
+#
+#             3)  send2trash.send2trash() sends files to the recycling bin instead of permanently deleting
+#                  shutil.rmtree(path) removes the entire directory tree permanently
+#             4) zipfile.ZipFile('') opens a zip file similar to open()
