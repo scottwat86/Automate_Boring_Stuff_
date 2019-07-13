@@ -1,6 +1,8 @@
 #! python3
-# PP9 - Program selective copies files with the same extension
+# Practice Project 9 - Program selective copies files with the same extension
 # from a directory tree beginning at a given parent directory.
+
+# By Scott Watson
 
 import os, shutil, re
 
