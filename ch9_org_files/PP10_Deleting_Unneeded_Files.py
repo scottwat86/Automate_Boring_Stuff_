@@ -1,7 +1,8 @@
 #! python3
+# Practice Project 10 - Deleting Unneeded files
 
+# By Scott Watson
 """
-Practice Project 10 - Deleting Unneeded files
 Write a program that walks through a folder tree and searches for exceptionally large files/folders
  say, ones that have a file size of more than 100MB. Print these files with their absolute path to
  the screen.
