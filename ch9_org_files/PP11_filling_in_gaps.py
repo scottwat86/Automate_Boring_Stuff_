@@ -1,7 +1,8 @@
 #! python3
+#  Practice Project 11 - Filling in the Gaps
 
+# By Scott Watson
 """
-Practice Project 11 - Filling in the Gaps
 Write a program that finds all files with a given prefix, such as spam001.txt, spam002.txt,
 and so on, in a single folder and locates  any gaps in the numbering
 """
