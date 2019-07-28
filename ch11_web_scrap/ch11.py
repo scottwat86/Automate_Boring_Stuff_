@@ -14,7 +14,11 @@
 # Downloading Files from the Web
 # Always call raise_for_status() after calling requests.get().
 
-import requests
+import requests, os
+
+# Defines local variable path for Ch11
+path = os.environ['python_home'] + '\\Automate_Boring_Stuff_\\ch11_web_scrap\\'
+
 res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
 type(res) # requests.models.Response
 
@@ -42,7 +46,7 @@ import requests, os
 
 res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
 res.raise_for_status() # Checks if get was sucessful
-playFile = open('RomeoAndJuliet.txt', 'wb') # wb = write binary
+playFile = open(path+'RomeoAndJuliet.txt', 'wb') # wb = write binary
 
 for chunk in res.iter_content(100_000): # 100_000 byte chunks to iterate
         playFile.write(chunk)
@@ -54,13 +58,11 @@ playFile.close()
 
 #               BEAUTIFULSOUP OBJECTS
 import requests, bs4
-path = '.\\example.html'
 res = requests.get('http://nostarch.com')
 res.raise_for_status()
 noStarchSoup = bs4.BeautifulSoup(res.text, 'html.parser')
 type(noStarchSoup) # bs4.BeautifulSoup
-os.chdir(./A)
-exampleFile = open(path) ######### Definie path
+exampleFile = open(path+'example.html') ######### Definie path
 exampleSoup = bs4.BeautifulSoup(exampleFile, "html.parser")
 type(exampleSoup)
 
@@ -85,7 +87,7 @@ type(exampleSoup)
 
 import bs4
 
-examplefile = open(path) ######### Definie path
+examplefile = open(path+'example.html')
 myfile=examplefile.read()
 examplesoup = bs4.BeautifulSoup(myfile, 'html.parser')
 elems = examplesoup.select('#author')
@@ -118,7 +120,7 @@ pElems[2].getText()
 
 #       Getting Data from an Element’s Attributes
 import bs4
-soup = bs4.BeautifulSoup(open(path), 'xml') ######### Definie path
+soup = bs4.BeautifulSoup(open(path+'example.html''), 'xml') ######### Definie path
 spanElem = soup.select('span')[0]
 str(spanElem) #'<span id="author">Al Sweigart</span>'
 spanElem.get('id') # 'author'
@@ -126,19 +128,65 @@ spanElem.get('some_nonexistent_addr') == None # True
 spanElem.attrs #{'id': 'author'}
 
 
-# ###############
-'''Project: “I’m Feeling Lucky” Google Search
- See ------>lucky.py'''
 ################
+"""
+Project: I m Feeling Lucky Google Search
+ See ------>lucky.py
+ """
 
 
-# ###############
+################
 '''Project: Downloading All XKCD Comics
  See ------>downloadXkcd.py'''
-################
 
 #                       Controlling the Browser with the SELENIUM MODULE
 
+from selenium import webdriver
+import os
+###########
+'''
+Tried to debug the env variable problem but wouldn't work. the below is a work around.
+'''
+browser = webdriver.Firefox(executable_path=os.environ['geckodriver'])
+
+type(browser)
+browser.get('http://inventwithpython.com')
 
 
-path = 'C:\\Users\\scott_watson\\Documents\\Python\\Automate_Boring_Stuff_\\ch11_web_scrap\\example.html'
+#               Finding Elements on the Page
+#          METHOD                                                            WEBELEMENT OBJECT / LIST RETURN
+
+#           browser.find_element_by_class_name(name)     Elements that use the class
+#           browser.find_elements_by_class_name(name)   class name
+
+#           browser.find_element_by_css_selector(selector)  Elements that match the CSS selector
+
+#           browser.find_element_by_id(id)                             Element with a matching id attribute value
+
+#           browser.find_by_link_text(text)                             <a> elements that completely match the text provided
+
+#           browser.find_element_by_partial_link_text(text)     <a> elements that contain the text provided
+
+#           browser.find_element_by_name(name)                      Elements with a matching name attribute value
+
+#           browser.find_element_by_tag_name(name)              Element with matching tag name
+#                                                                                               (case insensitive; an <a> element is
+#                                                                                                 matched by 'a' and 'A')
+
+#               Except for the *_by_tag_name() methods, the arguments to all
+#               these methods are case sensitvie
+
+#               NoSuchElement exception is raised if nothing is found
+
+
+#           WEBELEMENT ATTRIBUTES / METHODS
+#       ATTRIBUTE / METHOD       DESCRIPTION
+
+#       tag_name                                tag name, such as 'a' for an <a> element
+#       get_attribute(name)                value for the element's name attribute
+#       text                                          text within the element, such as 'hello' in <span>hello</span>
+#       clear()                                     text field or text area elements, clears the text typed into it
+#       is_displayed()                         Returns True if the elements is visible; otherwise returns False
+#       is_enabled()                            for input elements, return True if the element is enabled; otherwise returns False
+#       is_selected()                           for checkbox or radio button elements, returns True if the element is selected; otherwise return False
+#       location                                  Dictionary w keys 'x' and 'y' for the position of the element in the page
