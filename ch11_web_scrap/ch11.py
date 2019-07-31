@@ -148,7 +148,7 @@ import os
 Tried to debug the env variable problem but wouldn't work. the below is a work around.
 '''
 browser = webdriver.Firefox(executable_path=os.environ['geckodriver'])
-
+# Alternatively to specifying the executable_path you can copy geckodriver to the python dir
 type(browser)
 browser.get('http://inventwithpython.com')
 
@@ -190,3 +190,104 @@ browser.get('http://inventwithpython.com')
 #       is_enabled()                            for input elements, return True if the element is enabled; otherwise returns False
 #       is_selected()                           for checkbox or radio button elements, returns True if the element is selected; otherwise return False
 #       location                                  Dictionary w keys 'x' and 'y' for the position of the element in the page
+
+from selenium import webdriver
+browser = webdriver.Firefox(executable_path=os.environ['geckodriver'])
+browser.get('http://inventwithpython.com')
+linkElem = browser.find_element_by_link_text('Automate the Boring Stuff with Python')
+type(linkElem) # selenium.webdriver.firefox.webelement.FirefoxWebElement
+linkElem.click() # follows the "Read it online link"
+browser.quit()
+
+#                   Filling Out and Submitting Forms
+from selenium import webdriver
+browser = webdriver.Firefox(executable_path=os.environ['geckodriver'])
+url = 'https://login.yahoo.com/?.src=ym&.lang=en-US&.intl=us&.done=https%3A%2F%2Fmail.yahoo.com%2Fd'
+browser.get(url)
+emailElem = browser.find_element_by_id('login-username')
+emailElem.send_keys('email@yahoo.com')
+emailElem.submit()
+buttonElem = browser.find_element_by_id('login-signin')
+buttonElem.submit()
+passwordElem = browser.find_element_by_id('login-passwd')
+passwordElem.send_keys('password')
+buttonElem = browser.find_element_by_id('login-signin')
+buttonElem.click()
+browser.quit()
+
+# The above was revised as the old code from the book didnt work as is
+# as yahoo has moved to a two page login
+
+
+#                       Sending Special Keys
+#           Keys.Down, Keys.LEFT, Keys.RIGHT                               keyboard arrow Keys
+#           Keys.ENTER, Keys.RETURN                                            Enter and Return Keys
+#           Keys.HOME, Keys.END, Keys.PAGE_DOWN                 Home, end, pagedown, and pageup keys
+#           Keys.ESCAPE, Keys.BACK_SPACE, Keys.DELETE       ESC, BACKSPACE, and DELETE
+#           Keys.F1, Keys.F2, ... Keys.F12                                        F1 - F12
+#           Keys.TAB                                                                         Tab Keys
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+browser = webdriver.Firefox()
+browser.get('http://nostarch.com')
+htmlElem = browser.find_element_by_tag_name('html')
+htmlElem.send_keys(Keys.END)        # scolls to bottom
+htmlElem.send_keys(Keys.HOME)     # scolls to top
+
+
+#               Clicking Browser Buttons
+#           browser.back()             click the back button
+#           browser.forward()       click the forward button
+#           browser.refresh()         click the refresh / reload button
+#           browser.quit()              clic the close window button
+
+#               PRACTICE QUESTIONS
+#           1)  webbrowser - has open() method that can lauch firefox to a URL
+#               requests - can download files from the web
+#               BeautifulSoup - parses HTML
+#               selenium - can launch and control the browser
+#           2)
+import requests
+response = requests.get(url)
+type(response)  #requests.models.Response
+response.text
+#           3)
+response.status_code # 200 -> successful
+#           4)
+response.status_code #200
+#           5)
+file = open(new_file, 'wb') # write binary
+for chunk in response.iter_content(100_000): #100_000 bytes
+    file.write(chunk)
+file.close()
+#           6)  CTRL-SHIFT-C
+#           7) Right click and inspect element
+#           8)
+soup.select('#main')
+#           9)
+ soup.select('.highlight')
+#           10)
+soup.select('div div')
+#           11)
+soup.select('input[type="favorite"]')
+#           12)
+spam.getText()
+#           13)
+linkElem.attrs
+#           14)
+from selenium import webdriver
+#           15)
+#find_element_*    returns first match as WebElement object
+#find_element_*   returns a list of all element as WebElement object
+#           16)
+inkElem = browser.find_element_by_link_text('Automate the Boring Stuff with Python')
+linkElem.click()
+
+#           17)
+emailElem = browser.find_element_by_id('login-username')
+emailElem.send_keys('email@yahoo.com')
+emailElem.submit()
+#           18)
+browser.back()
+browser.forward()
+browser.refresh()
