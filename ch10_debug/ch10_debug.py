@@ -99,7 +99,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 logging.debug('Start of program')
 
-logging.diable(logging.CRITICAL) # Disables logging
+logging.disable(logging.CRITICAL) # Disables logging
 
 #               LOGGING LEVELS
 
