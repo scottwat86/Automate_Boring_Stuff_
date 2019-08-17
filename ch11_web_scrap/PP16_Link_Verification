@@ -1,0 +1,7 @@
+#! python3
+#  Practice Project 16 - Link Verification
+
+# By Scott Watson
+
+from selenium import webdriver
+import time

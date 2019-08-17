@@ -9,21 +9,30 @@ import time, sys, os, re, requests, logging
 # Set up logging
 logging.basicConfig(level=logging.DEBUG,
                                   format=' %(asctime)s - %(levelname)s - %(message)s')
-# logging.disable(logging.CRITICAL)  # Logging disabled
+logging.disable(logging.CRITICAL)  # Logging disabled
 
 # Initiate variables
-#scrrpt, *find_this = sys.argv
-find_this = 'cats'
+if len(sys.argv) == 2:
+    script, find_this = sys.argv
+elif len(sys.argv) > 2:
+    script, *find_this = sys.argv
+    find_this = ' '.join(find_this)
+else:
+    print('A search term was never provided. Please try again')
+    quit()
+
 url_search = 'https://www.flickr.com/search/?text='
 
+# Relocating to the directory to save the files to
 environment = os.environ.get('python_home') # Anaconda is having trouble locating env variables!
 dir_path = environment + '\\Automate_Boring_Stuff_\\ch11_web_scrap\\save_here'
-
 os.chdir(dir_path)
+
 logging.debug('Variables Initilized')
 
 # Conduct request to search for find_this
 search = requests.get(url_search + find_this)
+print(url_search + find_this)
 search.raise_for_status() # Checks for errors during the request
 logging.debug('HTML Request Successful')
 
