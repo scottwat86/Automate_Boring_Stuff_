@@ -3,9 +3,10 @@
 
 # By Scott Watson
 
+import requests, sys, re, logging
 from bs4 import BeautifulSoup
-import requests, time, os, re, logging
-# import os, re,
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 logging.basicConfig(level=logging.DEBUG,
                                   format=' %(asctime)s - %(levelname)s - %(message)s')
@@ -13,14 +14,25 @@ logging.disable(logging.CRITICAL)  # Logg"ing disabled
 
 def link_retriever(url):
     """
-    Takes input url and retrieves all http links from the input website. Each link is tested for
+    Takes input url and retrieves all http(s) links from the input website. Each link is tested for
     200 and 404 status codes and seperated in to two list. All other status code are saved to third list
 
-    Returns a list of active 200 status code by default
-    Set ReturnList to False to return a generator of same links
+    Returns a list of of lists
     """
+
+    # Stackoverflow solution for max retries exceeded error
+    #https://stackoverflow.com/questions/23013220/max-retries-exceeded-with-url-in-requests?rq=1
+        # This will GET the URL and retry 3 times in case of requests.exceptions.ConnectionError.
+        # backoff_factor will help to apply delays between attempts to avoid to fail again in case of
+        # periodic request quota.
+    session = requests.Session()
+    retry = Retry(connect=5, backoff_factor=1)
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+
     # Retrieving url html to parse
-    website = requests.get(url)
+    website = session.get(url)
     website.raise_for_status() # Checks for errors during the request
     logging.debug('HTML Request Successful')
 
@@ -48,8 +60,8 @@ def link_retriever(url):
 
     # Tests if each link is active
     for i in range(len(links)):
-        time.sleep(3)
-        website = requests.get(links[i])
+        print(".", end='')
+        website = session.get(links[i])
         website.raise_for_status()
 
         #Separates links by status code into lists
@@ -58,29 +70,67 @@ def link_retriever(url):
         elif website.status_code == 200:
             active_links.append(links[i])
         else:
-            other.append(links[i])
+            error.append(links[i])
 
-    yield active_links
+    return active_links, bad_links, error
 
-    #
-    # if ReturnList == True:
-    #     return active_links
-    # else:
-    #     yield active_links
 ################# - END OF DEF - ##################
 
-# try:
-#     script, url = sys.argv
-# except:
-#     print("Script takes one argument which should be a url. Please try again")
-# logging.debug('Initializing Argument Finished')
+# Retrieves URL from command line
 
-url = "https://pythontips.com/2013/09/29/the-python-yield-keyword-explained/"
+try:
+    script, url = sys.argv
+    logging.debug('Initializing Argument Finished')
+except:
+    print("\n*************\n\nScript takes one url as an argument!\n\n*************\n")
+    print("Please try again later.")
+    quit()
 
-# File system path
-env = os.environ.get('python_home')
-path = env + '\\Automate_Boring_Stuff_\\ch11_web_scrap\\save_here'
-os.chdir(path)
-logging.debug('Changed the directory to the directory to save urls to.')
+# Seperates the three lists for printing
+all_links = link_retriever(url)
+good = all_links[0]
+bad = all_links[1]
+evil = all_links[2]
 
-next(link_retriever(url))
+# Prints the results
+print("\n\nGood Links:")
+for i in good:
+    print(i)
+print("*****************\n")
+
+print("Bad Links:")
+for i in bad:
+    print(i)
+print("*****************\n")
+
+print("Evil  Links:")
+for i in evil:
+    print(i)
+print("*****************\n")
+
+
+"""
+INPUT ARGV
+url = https://www.datacamp.com
+
+OUTPUT:
+
+Good Links:
+https://www.datacamp.com/pricing
+https://www.datacamp.com/groups/business
+https://www.datacamp.com/groups/education
+https://www.datacamp.com/users/sign_up
+https://www.datacamp.com/users/sign_in
+https://www.datacamp.com/onboarding/learn?from=home
+https://www.datacamp.com/terms-of-use
+https://www.datacamp.com/privacy-policy
+https://www.datacamp.com/users/sign_in
+https://www.datacamp.com/users/sign_up
+*****************
+
+Bad Links:
+*****************
+
+Evil  Links:
+*****************
+"""
