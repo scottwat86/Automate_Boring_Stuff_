@@ -5,6 +5,9 @@
 #  readCensusExcel.py - Tabulates population and number of census tracts for
    #                                    each county.
 
+   # The readCensusExcel.py program was throwaway code: Once you have its results saved to
+   # census2010.py, you won’t need to run the program again.
+
 import openpyxl, pprint, os
 print('Opening workbook...')
 
@@ -25,7 +28,20 @@ for row in range(2, sheet.max_row + 1):
     county = sheet['C' + str(row)].value
     pop      = sheet['D' + str(row)].value
 
-# TODO - Counts the total population of each county
+    # Two lines create keys for state, tract, and pop, to avoid errors in the next two lines
+    # setdefault() does nothing if a key exists
+    countyData.setdefault(state, {})
+    countyData[state].setdefault(county, {'tracts' : 0, 'pop': 0})
 
+    countyData[state][county]['tracts'] += 1 # Each row represemts one census tract, so increment by 1
+    countyData[state][county]['pop'] += int(pop) # Increase the county pop by the pop in this census tract
+
+# TODO - Counts the total population of each county
+print('Writing results........')
+resultFile = open('_census2010.py', 'w')
+# pprint.pformat() produces a string that itself is formatteed as Python code.
+resultFile.write('allData = ' + pprint.pformat(countyData))
+resultFile.close()
+print('Done.')
 
 # TODO - Prints the results
