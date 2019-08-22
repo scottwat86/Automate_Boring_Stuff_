@@ -303,3 +303,121 @@ sheet.unmerge_cells('C5:D5')
 wb.save('merged.xlsx')
 
 # FREEZE PANES
+# In OpenPyXL, each Worksheet object has a freeze_panes attribute that can be set to a
+# Cell object or a string of a cell’s coordinates
+
+'''
+FREEZE_PANES SETTING                                    ROW / COLUMNS FROZEN
+
+sheet.freeze_panes = 'A2'                                          Row 1
+sheet.freeze_panes = 'B1'                                          Column A
+sheet.freeze_panes = 'C1'                                          Columns A and B
+sheet.freeze_panes = 'C2'                                          Row 1 and columns A and B
+sheet.freeze_panes = 'A1' or                                      No frozen panes
+                sheet.freeze_panes = None
+'''
+
+import openpyxl
+wb = openpyxl.load_workbook('produceSales.xlsx')
+sheet = wb.active
+sheet.freeze_panes = 'A2'
+wb.save('freezeExample.xlsx')
+
+# CHARTS
+# OpenPyXL supports creating bar, line, scatter, and pie charts using the data in a sheet’s cells.
+
+import openpyxl
+
+wb = openpyxl.Workbook()
+sheet = wb.active
+
+for i in range(1, 11): # Create some data in the column A
+    sheet['A'+str(i)] = i
+
+refObj = openpyxl.chart.Reference(sheet, min_col=1, min_row=1,  max_col=1, max_row=10)
+# min_col / max_col / min_row / max_row defines limits of data to be graphed under First Series
+# Note FIRST ROW = 1    NOT 0
+'''
+Reference(sheet, min_col=1, min_row=1,  max_col=1, max_row=10)  contains 2 pairs of tuples
+
+(row,col),   (row,col)
+(1, 1),          (10, 1)             ------> A1:A10
+(3, 2),          (6, 4)               ------> B3:C6
+(5, 3),          (5, 3)               ------> C5:C5
+'''
+seriesObj = openpyxl.chart.Series(refObj, title='First series')
+# Creates a Series object that selects the cells defined in the Ref object
+
+chartObj = openpyxl.chart.BarChart()  # Creates a Chart object of type BarChart
+chartObj.title = 'My Chart'
+chartObj.append(seriesObj)
+sheet.add_chart(chartObj, 'C5') # Inserts the Chart Object at cell C5
+
+wb.save('sampleChart.xlsx')
+
+#Practice Questions
+#   1)What does the openpyxl.load_workbook() function return?
+openpyxl.load_workbook('file.xlsx') # returns a saved excel file
+
+#   2)What does the get_sheet_names() workbook method return?
+#   wb.get_sheet_name() is deprecated;
+wb.sheetnames # is the prefered way and it returns sheet names in  the workbook
+
+#   3) How would you retrieve the Worksheet object for a sheet named 'Sheet1'?
+#    wb.get_sheet_by_name('Sheet1') is deprecated and
+wb['Sheet1'] # prefered way
+
+#   4) How would you retrieve the Worksheet object for the workbook’s active sheet?
+wb.active
+
+#   5) How would you retrieve the value in the cell C5?
+sheet['C5'].value # prefered
+
+#   6) How would you set the value in the cell C5 to "Hello"?
+sheet['C5'] = 'Hello'
+
+#   7) How would you retrieve the cell’s row and column as integers?
+sheet.row
+sheet.column
+
+#   8) What do the max_column and max_row sheet methods return, and what is the data type of these return values?
+sheet.max_row
+sheet.max_column
+# max_row/column returns the integer index of the  maximum extent of data in the sheet
+
+#   9) If you needed to get the integer index for column 'M', what function would you need to call?
+from openpyxl.utils import column_index_from_string
+column_index_from_string('M')
+# OR
+openpyxl.cell.column_index_from_string('M')
+
+#   10) If you needed to get the string name for column 14, what function would you need to call?
+openpyxl.cell.get_column_letter(14)
+
+#   11) How can you retrieve a tuple of all the Cell objects from A1 to F1?
+sheet['A1' : 'F1']
+
+#   12) How would you save the workbook to the filename example.xlsx?
+wb.save('example.xlsx')
+
+#   13) How do you set a formula in a cell?
+sheet['A1'] = '=SUM(A1:A2)'
+
+#   14) How would you set the height of row 5 to 100?
+sheet.row_dimensions[5].height = 100
+
+#   15) How would you hide column C?
+sheet.column_dimensions['C'].hidden = True
+
+#   16) Name a few features that OpenPyXL 2.3.3 does not load from a spreadsheet file.
+# Doesn't load charts, print titles, images, freeze panes
+
+#   17) What is a freeze pane?
+# Freeze pane allows you to always show a row or column; its good for labels
+
+#   18) What five functions and methods do you have to call to create a bar chart?
+openpyxl.charts.Reference()
+openpyxl.charts.Series()
+openpyxl.charts.BarChart()
+chartObj.append(seriesObj)
+add_chart()
