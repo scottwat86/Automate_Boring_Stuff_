@@ -20,10 +20,13 @@ dir_path = environment + '\\Automate_Boring_Stuff_\\ch12_excel\\'
 os.chdir(dir_path)
 
 # Initiate variables
-if len(sys.argv) == 2:
-    n = int(sys.argv[1])
+if len(sys.argv) == 4:
+    row_insertion = int(sys.argv[1])
+    number_to_insert = int(sys.argv[2])
+    excel_filename = sys.argv[3]
 else:
-    print('Program takes in one integer. Either too many or no arguments were provided.')
+    print('''Program takes row number to insert new row, number of inserted rows, and output excel
+    filename as input. The arguments provided either too many or too few to complete the progran.''')
     print('Please try again')
     quit()
 
