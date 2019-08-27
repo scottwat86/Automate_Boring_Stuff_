@@ -5,7 +5,7 @@
 
 # By Scott Watson
 
-import logging, os, sys
+import logging, sys
 import openpyxl as xl
 from openpyxl.utils import get_column_letter
 
@@ -13,11 +13,6 @@ from openpyxl.utils import get_column_letter
 logging.basicConfig(level=logging.DEBUG,
                                   format=' %(asctime)s - %(levelname)s - %(message)s')
 logging.disable(logging.CRITICAL)  # Logging disabled
-
-# Environment Variables for Directory PAy
-environment = os.environ.get('python_home') # Anaconda is having trouble locating env variables!
-dir_path = environment + '\\Automate_Boring_Stuff_\\ch12_excel\\'
-os.chdir(dir_path)
 
 # Initiate variables
 if len(sys.argv) == 4:

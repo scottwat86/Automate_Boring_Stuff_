@@ -8,7 +8,7 @@
 
 # By Scott Watson
 
-import os, logging
+import logging
 import openpyxl as xl
 from openpyxl.utils import get_column_letter
 
@@ -16,11 +16,6 @@ from openpyxl.utils import get_column_letter
 logging.basicConfig(level=logging.DEBUG,
                                   format=' %(asctime)s - %(levelname)s - %(message)s')
 logging.disable(logging.CRITICAL)  # Logging disabled
-
-# Environment Variables for local directory path
-environment = os.environ.get('python_home') # Anaconda is having trouble locating env variables!
-dir_path = environment + '\\Automate_Boring_Stuff_\\ch12_excel\\'
-os.chdir(dir_path)
 
 # Initiate variables
 if len(sys.argv) == 4:
@@ -48,11 +43,14 @@ last_column = sheet.max_column
 
 print(f"Shifting rows by {number_to_insert} downward, starting at last row and ending at {row_insertion} row\n")
 
+logging.debug('Looping through cells starting at last row until the insertion row')
 for row in range(last_row, row_insertion,-1):
     for column in range(1, last_column+1):
+        logging.debug('Shifting cell values')
         sheet[get_column_letter(column) + str(row + number_to_insert)] = \
                                                                             sheet[get_column_letter(column) + str(row)].value
 
+        logging.debug('Checking for boundary conditions at insertion')
         # Starting at the last row and shift everything down by number_to_insert
         if column == last_column and row == row_insertion:
             sheet[get_column_letter(column) + str(row)] = ''
@@ -63,6 +61,6 @@ for row in range(last_row, row_insertion,-1):
 
 print("Rows have been inserted. Done")
 
-
+logging.debug('Saving new file')
 file = excel_filename.split('.')
 wb.save(file[0] + '_2.' + file[1])
