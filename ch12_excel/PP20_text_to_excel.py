@@ -10,11 +10,9 @@
 # By Scott Watson
 
 # Import modules
-import os, sys #####
+import sys #####
 import openpyxl as xl
 from openpyxl.utils import get_column_letter
-
-os.chdir('C:\\Users\\scott_watson\\Documents\\Python\\Automate_Boring_Stuff_\\ch12_excel')
 
 # Command line argument verification
 if len(sys.argv) < 2:
