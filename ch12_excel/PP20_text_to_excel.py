@@ -3,14 +3,13 @@
 # PP20_text_to_excel.py
 
 # Write a program to read in the contents of several text files (you can make the text files yourself)
-# and insert those contents into a spreadsheet, with one line of text per row. The lines of the first
- # text file will be in the cells of column A, the lines of the second text file will be in the cells of
- # column B, and so on.
+# and insert those contents into a spreadsheet, with comma delimited items are inserted on rows
+# within one column. 
 
 # By Scott Watson
 
 # Import modules
-import sys #####
+import os, sys #####
 import openpyxl as xl
 from openpyxl.utils import get_column_letter
 
